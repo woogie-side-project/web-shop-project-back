@@ -8,15 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @Table(name = "users")
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class User {
 
     @Id
@@ -46,6 +44,25 @@ public class User {
     @Column(name = "grade", nullable = false)
     private Grade grade;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserLoginType type;
+
+    @Column(nullable = true, unique = true)
+    private Long socialId;
+
     @Column(name = "token", length = 300)
     private String token;
+
+    public User(String username, String nickname, String email, String password,
+            String phoneNumber, String address, Grade grade, UserLoginType type) {
+        this.username = username;
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.grade = grade;
+        this.type = type;
+    }
 }
