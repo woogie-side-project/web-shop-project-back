@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: 새 기능 개발
-title: "[ \U0001F389 FEATURE ] 기능이름을 적어주세요"
+title: "[ FEATURE ] 기능이름을 적어주세요"
 labels: feature
 assignees: ''
 

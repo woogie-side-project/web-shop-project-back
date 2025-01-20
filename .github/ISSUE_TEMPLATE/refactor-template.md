@@ -1,7 +1,7 @@
 ---
 name: Refactor Template
 about: 기능 리팩토링
-title: "[ ♻️ REFACTOR ] 리팩토링할 기능을 적어주세요 "
+title: "[ REFACTOR ] 리팩토링할 기능을 적어주세요 "
 labels: refactor
 assignees: ''
 
