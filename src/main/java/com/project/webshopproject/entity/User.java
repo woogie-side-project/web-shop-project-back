@@ -48,6 +48,10 @@ public class User {
     @Column(nullable = false)
     private UserLoginType type;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status;
+
     @Column(nullable = true, unique = true)
     private Long socialId;
 
@@ -55,7 +59,7 @@ public class User {
     private String token;
 
     public User(String username, String nickname, String email, String password,
-            String phoneNumber, String address, Grade grade, UserLoginType type) {
+            String phoneNumber, String address, Grade grade, UserLoginType type, UserStatus status) {
         this.username = username;
         this.nickname = nickname;
         this.email = email;
@@ -64,5 +68,6 @@ public class User {
         this.address = address;
         this.grade = grade;
         this.type = type;
+        this.status = status;
     }
 }
