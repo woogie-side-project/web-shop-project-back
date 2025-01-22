@@ -52,7 +52,6 @@ public class User {
     @Column(nullable = false)
     private UserStatus status;
 
-    @Column(nullable = true, unique = true)
     private Long socialId;
 
     public User(String username, String nickname, String email, String password,
@@ -68,11 +67,36 @@ public class User {
         this.status = status;
     }
 
+    public User(String username, String nickname, String email, String password,
+            String phoneNumber, String address, Grade grade, UserLoginType type, UserStatus status, Long socialId) {
+        this.username = username;
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.grade = grade;
+        this.type = type;
+        this.status = status;
+        this.socialId = socialId;
+    }
+
+    public User kakaoIdUpdate(Long kakaoId) {
+        this.socialId = kakaoId;
+        return this;
+    }
+
     public void changePassword(String newPassword) {
         this.password = password;
     }
 
     public void deleteUser() {
         this.status = UserStatus.DELETED;
+    }
+
+    public void updateProfile(final String nickname, final String phoneNumber, String address) {
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 }
