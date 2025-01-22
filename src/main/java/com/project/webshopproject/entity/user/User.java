@@ -1,4 +1,4 @@
-package com.project.webshopproject.entity;
+package com.project.webshopproject.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +28,7 @@ public class User {
     @Column(name = "nickname", nullable = false, unique = true, length = 10)
     private String nickname;
 
-    @Column(name = "email", nullable = false, length = 30)
+    @Column(name = "email", nullable = false, unique = true, length = 30)
     private String email;
 
     @Column(name = "password", nullable = false, length = 255)
@@ -55,9 +55,6 @@ public class User {
     @Column(nullable = true, unique = true)
     private Long socialId;
 
-    @Column(name = "token", length = 300)
-    private String token;
-
     public User(String username, String nickname, String email, String password,
             String phoneNumber, String address, Grade grade, UserLoginType type, UserStatus status) {
         this.username = username;
@@ -69,5 +66,9 @@ public class User {
         this.grade = grade;
         this.type = type;
         this.status = status;
+    }
+
+    public void changePassword(String newPassword) {
+        this.password = password;
     }
 }
