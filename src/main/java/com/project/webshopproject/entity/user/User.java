@@ -71,4 +71,8 @@ public class User {
     public void changePassword(String newPassword) {
         this.password = password;
     }
+
+    public void deleteUser() {
+        this.status = UserStatus.DELETED;
+    }
 }

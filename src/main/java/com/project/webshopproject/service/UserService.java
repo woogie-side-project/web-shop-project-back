@@ -1,6 +1,7 @@
 package com.project.webshopproject.service;
 
 import com.project.webshopproject.entity.user.dto.UserChangePasswordRequestDto;
+import com.project.webshopproject.entity.user.dto.UserResignRequestDto;
 import com.project.webshopproject.entity.user.dto.UserSignupRequestDto;
 import com.project.webshopproject.entity.user.Grade;
 import com.project.webshopproject.entity.user.User;
@@ -47,6 +48,17 @@ public class UserService {
         }
 
         user.changePassword(passwordEncoder.encode(requestDto.newPassword()));
+    }
+
+    public void resign(UserResignRequestDto requestDto, String email) {
+        User user = findByEmail(email);
+
+        // 현재 비밀번호가 올바른지 확인
+        if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
+            throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+        }
+
+        user.deleteUser();
     }
 
     public User findByEmail(String email) {
