@@ -35,10 +35,7 @@ public record UserSignupRequestDto(
 
         @NotNull(message = "주소는 필수 항목입니다.")
         @Size(max = 50, message = "주소는 50자 이하로 입력해야 합니다.")
-        String address,
-
-        @Size(max = 300, message = "Token은 300자 내로 입력해야 합니다.")
-        String token
+        String address
 ) {
 
 }
