@@ -25,6 +25,15 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public void signup(final UserSignupRequestDto requestDto) {
+        // 이메일 중복 확인
+        if (userRepository.existsByEmail(requestDto.email())) {
+            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
+        }
+        // 닉네임 중복 체크
+        if (userRepository.existsByNickname(requestDto.nickname())) {
+            throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
+        }
+
         User user = new User(
                 requestDto.username(),
                 requestDto.nickname(),
@@ -41,23 +50,19 @@ public class UserService {
 
     public void changePassword(UserChangePasswordRequestDto requestDto, String email) {
         User user = findByEmail(email);
-
         // 현재 비밀번호가 올바른지 확인
         if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
         }
-
         user.changePassword(passwordEncoder.encode(requestDto.newPassword()));
     }
 
     public void resign(UserResignRequestDto requestDto, String email) {
         User user = findByEmail(email);
-
         // 현재 비밀번호가 올바른지 확인
         if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
         }
-
         user.deleteUser();
     }
 

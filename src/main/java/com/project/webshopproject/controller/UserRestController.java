@@ -31,9 +31,14 @@ public class UserRestController {
     public ResponseEntity<RestApiResponseDto<String>> signup(
             @Valid @RequestBody final UserSignupRequestDto requestDto
     ) {
-        userService.signup(requestDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(RestApiResponseDto.of("회원가입에 성공하였습니다!"));
+        try {
+            userService.signup(requestDto);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(RestApiResponseDto.of("회원가입에 성공하였습니다!"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(RestApiResponseDto.of(e.getMessage()));
+        }
     }
 
     /**
