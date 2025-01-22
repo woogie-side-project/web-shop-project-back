@@ -1,10 +1,11 @@
 package com.project.webshopproject.service;
 
-import com.project.webshopproject.dto.UserSignupRequestDto;
-import com.project.webshopproject.entity.Grade;
-import com.project.webshopproject.entity.User;
-import com.project.webshopproject.entity.UserLoginType;
-import com.project.webshopproject.entity.UserStatus;
+import com.project.webshopproject.entity.user.dto.UserChangePasswordRequestDto;
+import com.project.webshopproject.entity.user.dto.UserSignupRequestDto;
+import com.project.webshopproject.entity.user.Grade;
+import com.project.webshopproject.entity.user.User;
+import com.project.webshopproject.entity.user.UserLoginType;
+import com.project.webshopproject.entity.user.UserStatus;
 import com.project.webshopproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,17 @@ public class UserService {
                 UserStatus.ACTIVE
         );
         userRepository.save(user);
+    }
+
+    public void changePassword(UserChangePasswordRequestDto requestDto, String email) {
+        User user = findByEmail(email);
+
+        // 현재 비밀번호가 올바른지 확인
+        if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
+            throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+        }
+
+        user.changePassword(passwordEncoder.encode(requestDto.newPassword()));
     }
 
     public User findByEmail(String email) {
