@@ -1,10 +1,9 @@
 package com.project.webshopproject.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.webshopproject.dto.UserLoginRequestDto;
-import com.project.webshopproject.entity.Grade;
-import com.project.webshopproject.entity.User;
-import com.project.webshopproject.entity.UserStatus;
+import com.project.webshopproject.entity.user.dto.UserLoginRequestDto;
+import com.project.webshopproject.entity.user.User;
+import com.project.webshopproject.entity.user.UserStatus;
 import com.project.webshopproject.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +27,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JwtAuthenticationFilter(JwtProvider jwtProvider, UserService userService) {
         this.jwtProvider = jwtProvider;
         this.userService = userService;
-        setFilterProcessesUrl("/v1/auth/login");
+        setFilterProcessesUrl("/auth/login");
     }
 
     @Override
@@ -74,8 +72,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 헤더에 토큰 저장
         response.setHeader("Authorization", accessToken);
         response.setHeader("RefreshToken", refreshToken);
-        jwtProvider.addToken(accessToken, refreshToken,
-                jwtProvider.extractExpirationMillis(jwtProvider.substringToken(refreshToken)));
+//        jwtProvider.addToken(accessToken, refreshToken,
+//                jwtProvider.extractExpirationMillis(jwtProvider.substringToken(refreshToken)));
 
         // 로그인 성공 메세지 반환
         response.setContentType("application/json; charset=UTF-8");

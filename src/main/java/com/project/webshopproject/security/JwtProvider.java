@@ -35,8 +35,9 @@ public class JwtProvider {
     private final UserDetailsServiceImpl userDetailsService;
 
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-    @Value("${jwt.secret.key}")
-    private String secretKey;
+    //TODO 시크릿 키 수정
+//    @Value("${jwt.secret.key}")
+    private String secretKey = "7JeQ67iM66as65Oc66eB7YGs7Iuc7YGs66a/7YKk7J6F64uI64uk7Iqk7YyM66W07YOA";
     private Key key;
 
     @PostConstruct

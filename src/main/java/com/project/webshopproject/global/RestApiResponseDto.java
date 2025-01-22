@@ -1,4 +1,4 @@
-package com.project.webshopproject.dto;
+package com.project.webshopproject.global;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

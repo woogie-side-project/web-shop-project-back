@@ -1,4 +1,4 @@
-package com.project.webshopproject.dto;
+package com.project.webshopproject.entity.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
 package com.project.webshopproject.security;
 
-import com.project.webshopproject.entity.Grade;
-import com.project.webshopproject.entity.User;
+import com.project.webshopproject.entity.user.Grade;
+import com.project.webshopproject.entity.user.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
