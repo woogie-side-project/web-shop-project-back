@@ -1,22 +1,19 @@
-package com.project.webshopproject.controller;
+package com.project.webshopproject.user;
 
 import static com.project.webshopproject.security.JwtProvider.AUTHORIZATION_HEADER;
 import static com.project.webshopproject.security.JwtProvider.REFRESHTOKEN_HEADER;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.project.webshopproject.entity.user.dto.KakaoUserInfoDto;
-import com.project.webshopproject.entity.user.dto.UserChangePasswordRequestDto;
-import com.project.webshopproject.entity.user.dto.UserKakaoProfileUpdateRequestDto;
-import com.project.webshopproject.entity.user.dto.UserResignRequestDto;
-import com.project.webshopproject.entity.user.dto.UserSignupRequestDto;
+import com.project.webshopproject.user.dto.KakaoUserInfoDto;
+import com.project.webshopproject.user.dto.UserChangePasswordRequestDto;
+import com.project.webshopproject.user.dto.UserKakaoProfileUpdateRequestDto;
+import com.project.webshopproject.user.dto.UserResignRequestDto;
+import com.project.webshopproject.user.dto.UserSignupRequestDto;
 import com.project.webshopproject.global.RestApiResponseDto;
 import com.project.webshopproject.security.UserDetailsImpl;
-import com.project.webshopproject.service.KakaoService;
-import com.project.webshopproject.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

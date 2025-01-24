@@ -1,4 +1,4 @@
-package com.project.webshopproject.entity.user.dto;
+package com.project.webshopproject.user.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

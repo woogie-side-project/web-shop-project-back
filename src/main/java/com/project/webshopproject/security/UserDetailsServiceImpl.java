@@ -1,7 +1,7 @@
 package com.project.webshopproject.security;
 
-import com.project.webshopproject.entity.user.User;
-import com.project.webshopproject.service.UserService;
+import com.project.webshopproject.user.entity.User;
+import com.project.webshopproject.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

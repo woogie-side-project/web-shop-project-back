@@ -1,4 +1,4 @@
-package com.project.webshopproject.service;
+package com.project.webshopproject.user;
 
 import static com.project.webshopproject.security.JwtProvider.AUTHORIZATION_HEADER;
 import static com.project.webshopproject.security.JwtProvider.BEARER_PREFIX;
@@ -7,12 +7,11 @@ import static com.project.webshopproject.security.JwtProvider.REFRESHTOKEN_HEADE
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.webshopproject.entity.user.Grade;
-import com.project.webshopproject.entity.user.User;
-import com.project.webshopproject.entity.user.UserLoginType;
-import com.project.webshopproject.entity.user.UserStatus;
-import com.project.webshopproject.entity.user.dto.KakaoUserInfoDto;
-import com.project.webshopproject.repository.UserRepository;
+import com.project.webshopproject.user.entity.Grade;
+import com.project.webshopproject.user.entity.User;
+import com.project.webshopproject.user.entity.UserLoginType;
+import com.project.webshopproject.user.entity.UserStatus;
+import com.project.webshopproject.user.dto.KakaoUserInfoDto;
 import com.project.webshopproject.security.JwtProvider;
 import jakarta.servlet.http.HttpServletResponse;
 import java.net.URI;

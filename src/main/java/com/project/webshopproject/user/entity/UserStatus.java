@@ -1,4 +1,4 @@
-package com.project.webshopproject.entity.user;
+package com.project.webshopproject.user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

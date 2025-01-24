@@ -1,6 +1,6 @@
-package com.project.webshopproject.repository;
+package com.project.webshopproject.user;
 
-import com.project.webshopproject.entity.user.User;
+import com.project.webshopproject.user.entity.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

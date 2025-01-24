@@ -1,10 +1,10 @@
 package com.project.webshopproject.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.webshopproject.entity.user.dto.UserLoginRequestDto;
-import com.project.webshopproject.entity.user.User;
-import com.project.webshopproject.entity.user.UserStatus;
-import com.project.webshopproject.service.UserService;
+import com.project.webshopproject.user.dto.UserLoginRequestDto;
+import com.project.webshopproject.user.entity.User;
+import com.project.webshopproject.user.entity.UserStatus;
+import com.project.webshopproject.user.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

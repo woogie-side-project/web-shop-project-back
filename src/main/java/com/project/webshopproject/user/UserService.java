@@ -1,13 +1,12 @@
-package com.project.webshopproject.service;
+package com.project.webshopproject.user;
 
-import com.project.webshopproject.entity.user.dto.UserChangePasswordRequestDto;
-import com.project.webshopproject.entity.user.dto.UserResignRequestDto;
-import com.project.webshopproject.entity.user.dto.UserSignupRequestDto;
-import com.project.webshopproject.entity.user.Grade;
-import com.project.webshopproject.entity.user.User;
-import com.project.webshopproject.entity.user.UserLoginType;
-import com.project.webshopproject.entity.user.UserStatus;
-import com.project.webshopproject.repository.UserRepository;
+import com.project.webshopproject.user.dto.UserChangePasswordRequestDto;
+import com.project.webshopproject.user.dto.UserResignRequestDto;
+import com.project.webshopproject.user.dto.UserSignupRequestDto;
+import com.project.webshopproject.user.entity.Grade;
+import com.project.webshopproject.user.entity.User;
+import com.project.webshopproject.user.entity.UserLoginType;
+import com.project.webshopproject.user.entity.UserStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

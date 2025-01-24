@@ -1,4 +1,4 @@
-package com.project.webshopproject.entity.user;
+package com.project.webshopproject.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
