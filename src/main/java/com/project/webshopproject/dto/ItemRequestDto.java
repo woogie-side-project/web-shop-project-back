@@ -5,9 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ItemDto {
+public class ItemRequestDto {
     private String itemName;    // 상품 이름
-    private String itemImg;     // 상품 이미지 URL
     private Integer itemPrice;  // 상품 가격
     private Integer itemCount; // 상품 수량
 }
