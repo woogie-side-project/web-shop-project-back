@@ -1,5 +1,6 @@
 package com.project.webshopproject.user.entity;
 
+import com.project.webshopproject.common.TimeStamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "users")
 @NoArgsConstructor
-public class User {
+public class User extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
