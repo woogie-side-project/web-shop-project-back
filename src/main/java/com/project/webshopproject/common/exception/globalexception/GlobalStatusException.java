@@ -1,6 +1,6 @@
-package com.project.webshopproject.exception.globalexception;
+package com.project.webshopproject.common.exception.globalexception;
 
-import com.project.webshopproject.exception.errorcode.ErrorCode;
+import com.project.webshopproject.common.exception.errorcode.ErrorCode;
 import lombok.Getter;
 
 @Getter

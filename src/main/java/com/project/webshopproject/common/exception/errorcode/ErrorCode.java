@@ -1,4 +1,4 @@
-package com.project.webshopproject.exception.errorcode;
+package com.project.webshopproject.common.exception.errorcode;
 
 public interface ErrorCode {
 

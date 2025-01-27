@@ -9,7 +9,7 @@ import com.project.webshopproject.user.dto.UserChangePasswordRequestDto;
 import com.project.webshopproject.user.dto.UserKakaoProfileUpdateRequestDto;
 import com.project.webshopproject.user.dto.UserResignRequestDto;
 import com.project.webshopproject.user.dto.UserSignupRequestDto;
-import com.project.webshopproject.global.RestApiResponseDto;
+import com.project.webshopproject.common.RestApiResponseDto;
 import com.project.webshopproject.security.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

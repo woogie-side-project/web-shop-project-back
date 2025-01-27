@@ -2,7 +2,7 @@ package com.project.webshopproject.security;
 
 import static com.project.webshopproject.security.JwtProvider.AUTHORIZATION_HEADER;
 
-import com.project.webshopproject.exception.customexception.TokenException;
+import com.project.webshopproject.common.exception.customexception.TokenException;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
