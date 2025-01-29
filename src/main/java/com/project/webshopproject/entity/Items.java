@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "items")
 @Getter
@@ -18,8 +21,11 @@ public class Items {
     @Column(nullable = false, length = 50)
     private String itemName;  // 제품 이름
 
-    @Column(length = 300)
-    private String itemImg;  // 이미지 경로 (URL)
+    @Column(nullable = false,length = 300 )
+    private String itemMainImg; // 제품 메인 이미지
+
+    @OneToMany(mappedBy = "items", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemImg> itemImages = new ArrayList<>();  // 여러 이미지들
 
     @Column(nullable = false)
     private Integer itemPrice;  // 가격
