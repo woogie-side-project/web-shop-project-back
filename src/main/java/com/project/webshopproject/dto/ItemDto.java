@@ -9,5 +9,5 @@ public class ItemDto {
     private String itemName;    // 상품 이름
     private String itemImg;     // 상품 이미지 URL
     private Integer itemPrice;  // 상품 가격
-    private Integer itemCount; // 상품 수량
+    private Integer itemStock; // 상품 수량
 }

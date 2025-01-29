@@ -31,6 +31,7 @@ public class ItemController {
         itemService.addItem(itemRequestDto,image);
         return ResponseEntity.ok("상품추가에 성공하였습니다");
     }
+
     @PatchMapping("/item/{itemId}") // 상품 수정
     public ResponseEntity<ItemEditDto> editItem(@PathVariable Long itemId,
                                                 @RequestPart("dto") ItemEditDto itemEditDto,
@@ -38,10 +39,9 @@ public class ItemController {
         ItemEditDto updatedItem = itemService.editItem(itemId,itemEditDto, image);
         return ResponseEntity.ok(updatedItem);
     }
-    @DeleteMapping("item/{itemId}")
+    @DeleteMapping("item/{itemId}") // 상품 삭제
     public ResponseEntity<String> deleteItem(@PathVariable Long itemId){
         itemService.deleteItem(itemId);
         return ResponseEntity.ok("상품삭제에 성공하였습니다");
     }
-
 }

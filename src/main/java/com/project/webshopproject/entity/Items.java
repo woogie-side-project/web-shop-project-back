@@ -25,5 +25,5 @@ public class Items {
     private Integer itemPrice;  // 가격
 
     @Column(nullable = false)
-    private Integer itemCount;  // 상품 수량
+    private Integer itemStock;  // 상품 수량
 }

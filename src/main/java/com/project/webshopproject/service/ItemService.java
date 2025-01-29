@@ -29,7 +29,7 @@ public class ItemService {
                         item.getItemName(),
                         "/images/" + item.getItemImg(),
                         item.getItemPrice(),
-                        item.getItemCount()
+                        item.getItemStock()
                 ))
                 .collect(Collectors.toList());
     }
@@ -41,7 +41,7 @@ public class ItemService {
                 item.getItemName(),
                 "/images/" + item.getItemImg(),
                 item.getItemPrice(),
-                item.getItemCount()
+                item.getItemStock()
         );
     }
 
@@ -55,7 +55,7 @@ public class ItemService {
             items.setItemName(itemRequestDto.getItemName());
             items.setItemImg(imagePath);
             items.setItemPrice(itemRequestDto.getItemPrice());
-            items.setItemCount(itemRequestDto.getItemCount());
+            items.setItemStock(itemRequestDto.getItemStock());
             itemRepository.save(items);
 
         } catch (Exception e) {
@@ -88,8 +88,8 @@ public class ItemService {
             editItem.setItemPrice(itemEditDto.getItemPrice());
         }
 
-        if (itemEditDto.getItemCount() != null) {
-            editItem.setItemCount(itemEditDto.getItemCount());
+        if (itemEditDto.getItemStock() != null) {
+            editItem.setItemStock(itemEditDto.getItemStock());
         }
 
         if (image != null ) {
@@ -106,7 +106,7 @@ public class ItemService {
                 updatedItem.getItemName(),
                 "/images/" + updatedItem.getItemImg(),
                 updatedItem.getItemPrice(),
-                updatedItem.getItemCount()
+                updatedItem.getItemStock()
         );
     }
     public void deleteItem(Long itemId){

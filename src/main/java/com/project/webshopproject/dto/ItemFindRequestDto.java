@@ -9,5 +9,5 @@ public class ItemFindRequestDto {
     private String itemName;
     private String itemImgUrl;
     private Integer itemPrice;
-    private Integer itemCount;
+    private Integer itemStock;
 }
