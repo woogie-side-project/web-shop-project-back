@@ -3,23 +3,35 @@ package com.project.webshopproject.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Inquiry {
+public class Asks {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userID; // userID 필드
+    @Column(nullable = false)
+    private Long userID;
 
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false, length = 500)
     private String content;
+
+    @Column(nullable = false, length = 50)
     private String category;
+
+    @Column(length = 20)
     private String itemId;
+
+    @Column(length = 500)
     private String adminResponse;
 
+    @Column(length = 500)
     private String answer;
 
-    @Enumerated(EnumType.STRING) // Enum 타입 매핑
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
 
     public enum Status {

@@ -1,22 +1,29 @@
 package com.project.webshopproject.dto;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 
-public class InquiryRequest {
-    @NotNull
+public class AsksRequestDto {
+
+    @NotNull(message = "User ID는 null일 수 없습니다.")
     private Long userID;
 
-    @NotBlank
+    @NotBlank(message = "Title은 비어 있을 수 없습니다.")
+    @Size(max = 100, message = "Title의 최대 길이는 100자입니다.")
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "Content는 비어 있을 수 없습니다.")
     private String content;
 
-    @NotBlank
+    @NotBlank(message = "Category는 비어 있을 수 없습니다.")
     private String category;
 
+    @Pattern(regexp = "^[A-Za-z0-9]{3,10}$", message = "Item ID는 3자에서 10자 사이의 영숫자여야 합니다.")
     private String itemId;
 
+    // Getters and Setters
     public Long getUserID() {
         return userID;
     }
@@ -56,8 +63,8 @@ public class InquiryRequest {
     public void setItemId(String itemId) {
         this.itemId = itemId;
     }
-
 }
+
 
 
 /*{

@@ -1,9 +1,8 @@
 package com.project.webshopproject.controller;
 
-import com.project.webshopproject.dto.InquiryRequest;
-import com.project.webshopproject.model.Inquiry;
-import com.project.webshopproject.repository.InquiryRepo;
-import com.project.webshopproject.service.InquiryService;
+import com.project.webshopproject.dto.AsksRequest;
+import com.project.webshopproject.model.Asks;
+import com.project.webshopproject.service.AsksService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/asks")
-public class InquiryController {
-    private final InquiryService inquiryService;
-    public InquiryController(InquiryService inquiryService) {
+public class AsksController {
+    private final AsksService inquiryService;
+    public AsksController(AsksService inquiryService) {
         this.inquiryService = inquiryService;
     }
 
     @GetMapping("/asks")
     public ResponseEntity<Map<String, Object>> getAllInquiries() {
-        List<Inquiry> inquiries = inquiryService.getAllInquiries();
+        List<Asks> inquiries = inquiryService.getAllInquiries();
 
         Map<String, Object> response = new HashMap<>();
         response.put("code", "200");
@@ -34,7 +33,7 @@ public class InquiryController {
     // 사용자 문의사항 전체 조회
     @GetMapping("/user/{userID}")
     public ResponseEntity<Map<String, Object>> getAllInquiriesByUser(@PathVariable Long userID) {
-        List<Inquiry> inquiries = inquiryService.getInquiriesByUserID(userID);
+        List<Asks> inquiries = inquiryService.getInquiriesByUserID(userID);
 
         Map<String, Object> response = new HashMap<>();
         response.put("code", "200");
@@ -49,24 +48,24 @@ public class InquiryController {
     public ResponseEntity<Map<String, Object>> getInquiryById(
             @PathVariable Long id,
             @RequestParam Long userID) {
-        Inquiry inquiry = inquiryService.getInquiryByIdAndUserID(id, userID);
+        Asks asks = inquiryService.getInquiryByIdAndUserID(id, userID);
 
         Map<String, Object> response = new HashMap<>();
         response.put("code", "200");
         response.put("message", "문의내용 가져오기 성공");
-        response.put("data", inquiry);
+        response.put("data", asks);
 
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<Inquiry> createInquiry(@RequestBody InquiryRequest inquiryRequest) {
+    public ResponseEntity<Asks> createInquiry(@RequestBody AsksRequest inquiryRequest) {
         return ResponseEntity.ok(inquiryService.createInquiry(inquiryRequest));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Inquiry> updateInquiry(@PathVariable Long id, @RequestBody InquiryRequest inquiryRequest) {
-        Inquiry updatedInquiry = inquiryService.updateInquiry(id, inquiryRequest);
+    @PatchMapping("/{id}")
+    public ResponseEntity<Asks> updateInquiry(@PathVariable Long id, @RequestBody AsksRequest inquiryRequest) {
+        Asks updatedInquiry = inquiryService.updateInquiry(id, inquiryRequest);
         return ResponseEntity.ok(inquiryService.updateInquiry(id, inquiryRequest));
     }
 
@@ -99,7 +98,7 @@ public class InquiryController {
             throw new RuntimeException("답변 내용을 입력해주세요.");
         }
 
-        Inquiry updatedInquiry = inquiryService.addAnswerToInquiry(id, answer);
+        Asks updatedInquiry = inquiryService.addAnswerToInquiry(id, answer);
 
         Map<String, Object> response = new HashMap<>();
         response.put("userID", updatedInquiry.getUserID());
