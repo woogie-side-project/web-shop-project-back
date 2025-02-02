@@ -19,11 +19,11 @@ public class ItemController {
         return itemService.getAllItem();
     }
 
-//    @GetMapping("/item/{itemId}") //단일 상품 조회
-//    public ResponseEntity<ItemFindRequestDto> getItemById(@PathVariable Long itemId) {
-//        ItemFindRequestDto itemDto = itemService.getItemById(itemId);
-//        return ResponseEntity.ok(itemDto);
-//    }
+    @GetMapping("/item/{itemId}") //단일 상품 조회
+    public ResponseEntity<ItemFindRequestDto> getItemById(@PathVariable Long itemId) {
+        ItemFindRequestDto itemDto = itemService.getItemById(itemId);
+        return ResponseEntity.ok(itemDto);
+    }
     @PostMapping("/item") //상품 추가
     public ResponseEntity<String> addItem(@RequestPart("dto") ItemAddRequestDto itemAddRequestDto,
                                           @RequestPart("image") final List<MultipartFile> images){

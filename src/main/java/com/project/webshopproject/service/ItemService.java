@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,18 +42,33 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    // 세부 상품 조회
-//    public ItemFindRequestDto getItemById(Long itemId) {
-//        Items item = itemRepository.findById(itemId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 상품이 존재하지 않습니다: " + itemId));
-//
-//        return new ItemFindRequestDto(
-//                item.getItemName(),
-//                "/images/" + item.getItemImg(),
-//                item.getItemPrice(),
-//                item.getItemStock()
-//        );
-//    }
+     // 세부 상품 조회
+    public ItemFindRequestDto getItemById(Long itemId) {
+        // 연관 이미지 데이터를 함께 로딩하기 위해 findByIdWithImages() 사용 -> joinfetch
+        Items item = itemRepository.findByIdWithImages(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 상품이 존재하지 않습니다: " + itemId));
+
+        // 대표 이미지 추가
+        List<String> imageUrls = new ArrayList<>();
+        if (item.getItemMainImg() != null) {
+            imageUrls.add(item.getItemMainImg()); // 대표 이미지 먼저 추가
+        }
+
+        // 세부 이미지 추가
+        List<String> detailImages  = item.getItemImages().stream()
+                .map(ItemImg::getItemImg)
+                .collect(Collectors.toList());
+
+        // 이미지들 합치기
+        imageUrls.addAll(detailImages);
+
+        return new ItemFindRequestDto(
+                item.getItemName(),
+                imageUrls,
+                item.getItemPrice(),
+                item.getItemStock()
+        );
+    }
 
     @Value("${file.upload-dir}")
     private String uploadDir; // 이미지 파일 저장 되는 경로
@@ -85,12 +102,16 @@ public class ItemService {
     }
     // 이미지를 서버에 저장하고 경로를 반환하는 메서드
     public List<String> saveImage(List<MultipartFile> images) throws IOException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         List<String> savedImageUrls = new ArrayList<>();
 
         for(int i = 0; i < images.size(); i++){
             MultipartFile itemImg = images.get(i);
             // 파일 이름 생성 (현재 시간 + 원본 파일 이름)
-            String fileName = System.currentTimeMillis() + "-" + itemImg.getOriginalFilename();
+            String currentTime = LocalDateTime.now().format(formatter);
+
+            String fileName = currentTime + "-" + itemImg.getOriginalFilename();
             // 저장 경로 생성
             Path filePath = Paths.get(uploadDir, fileName);
             // 경로가 존재하지 않으면 디렉토리 생성
