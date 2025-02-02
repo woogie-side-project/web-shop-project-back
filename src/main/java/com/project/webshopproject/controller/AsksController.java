@@ -1,6 +1,6 @@
 package com.project.webshopproject.controller;
 
-import com.project.webshopproject.dto.AsksRequest;
+import com.project.webshopproject.dto.AsksRequestDto;
 import com.project.webshopproject.model.Asks;
 import com.project.webshopproject.service.AsksService;
 import org.springframework.http.ResponseEntity;
@@ -59,12 +59,12 @@ public class AsksController {
     }
 
     @PostMapping
-    public ResponseEntity<Asks> createInquiry(@RequestBody AsksRequest inquiryRequest) {
+    public ResponseEntity<Asks> createInquiry(@RequestBody AsksRequestDto inquiryRequest) {
         return ResponseEntity.ok(inquiryService.createInquiry(inquiryRequest));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Asks> updateInquiry(@PathVariable Long id, @RequestBody AsksRequest inquiryRequest) {
+    public ResponseEntity<Asks> updateInquiry(@PathVariable Long id, @RequestBody AsksRequestDto inquiryRequest) {
         Asks updatedInquiry = inquiryService.updateInquiry(id, inquiryRequest);
         return ResponseEntity.ok(inquiryService.updateInquiry(id, inquiryRequest));
     }
