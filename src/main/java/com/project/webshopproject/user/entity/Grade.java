@@ -1,4 +1,4 @@
-package com.project.webshopproject.entity;
+package com.project.webshopproject.user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public enum Grade {
 
     private final String authority;
 
-    public static boolean isAdmin(Grade role) {
-        return ADMIN.equals(role);
+    public static boolean isAdmin(Grade grade) {
+        return ADMIN.equals(grade);
     }
 }
