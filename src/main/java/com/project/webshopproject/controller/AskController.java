@@ -12,25 +12,13 @@ import java.util.Map;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
 @RequiredArgsConstructor
 public class AskController {
     private final AskService askService;
 
-    @GetMapping("/{askId}")
-    public ResponseEntity<Map<String, Object>> getInquiryById(
-            @PathVariable Long askId,
-            @RequestParam Long userID) {
-        Ask asks = askService.getAsksByIdAndUserID(askId, userID);
-
-        AskRequestDto askRequestDto = new AskRequestDto(userID, "문의내용 가져오기 성공", asks.getTitle(), asks.getContent(), asks.getCategory(), asks.getItemId());
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", "200");
-        response.put("message", askRequestDto.getTitle()); // 메시지로 타이틀을 사용
-        response.put("data", askRequestDto);
-
-        return ResponseEntity.ok(response);
+    @GetMapping("/asks/{askId}")
+    public AskRequestDto getAsk(@PathVariable Long askId, @RequestParam Long userId) {
+        return askService.getAskDetail(askId, userId);
     }
 
     // 사용자 문의사항 전체 조회
@@ -63,10 +51,10 @@ public class AskController {
             @RequestBody Map<String, String> requestBody) {
 
         // 요청에서 userID 추출
-        Long userID = Long.parseLong(requestBody.get("userID"));
+        Long userId = Long.parseLong(requestBody.get("userID"));
 
         // 삭제 처리
-        askService.deleteAsk(askId, userID);
+        askService.deleteAsk(askId, userId);
 
         // 응답 메시지 생성
         Map<String, String> response = new HashMap<>();
@@ -89,7 +77,7 @@ public class AskController {
         Ask updatedAsk = askService.addAnswerToAsk(askId, answer);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("userID", updatedAsk.getUserID());
+        response.put("userID", updatedAsk.getUserId());
         response.put("title", updatedAsk.getTitle());
         response.put("content", updatedAsk.getContent());
         response.put("category", updatedAsk.getCategory());

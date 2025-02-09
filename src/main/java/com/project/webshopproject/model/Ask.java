@@ -1,18 +1,18 @@
 package com.project.webshopproject.model;
 
-import ch.qos.logback.classic.Level;
 import jakarta.persistence.*;
+
+import static com.project.webshopproject.model.Status.ANSWERED;
 
 @Entity
 public class Ask {
 
-    public static Level Status;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Long userID;
+    private Long userId;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -24,7 +24,7 @@ public class Ask {
     private String category;
 
     @Column(length = 20)
-    private String itemId;
+    private Long itemId;
 
     @Column(length = 500)
     private String adminResponse;
@@ -34,71 +34,62 @@ public class Ask {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private Status status = ANSWERED;
 
-    // Getter와 Setter
-    public Long getUserID() {
-        return userID;
+    // 모든 필드를 초기화하는 생성자 추가
+    public Ask(Long userId, String title, String content, String category, String itemId) {
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.itemId = Long.valueOf(itemId);
+        this.status = ANSWERED; // 기본값 설정
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    // Getter
+    public Long getId() {
+        return id;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
-    }
-
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
     }
 
     public String getAdminResponse() {
         return adminResponse;
     }
 
-    public void setAdminResponse(String adminResponse) {
-        this.adminResponse = adminResponse;
-    }
-
     public String getAnswer() {
         return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-        this.status = com.project.webshopproject.model.Status.ANSWERED;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    // 응답 설정 메서드
+    public void setAdminResponse(String adminResponse) {
+        this.adminResponse = adminResponse;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+        this.status = ANSWERED; // 답변이 설정되면 상태를 ANSWERED로 변경
     }
 }
