@@ -1,10 +1,12 @@
 package com.project.webshopproject.model;
 
+import ch.qos.logback.classic.Level;
 import jakarta.persistence.*;
 
 @Entity
-public class Asks {
+public class Ask {
 
+    public static Level Status;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,10 +35,6 @@ public class Asks {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
-
-    public enum Status {
-        WAITING, ANSWERED
-    }
 
     // Getter와 Setter
     public Long getUserID() {
@@ -93,7 +91,7 @@ public class Asks {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-        this.status = Status.ANSWERED;
+        this.status = com.project.webshopproject.model.Status.ANSWERED;
     }
 
     public Status getStatus() {

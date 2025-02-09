@@ -13,7 +13,7 @@ import com.querydsl.core.types.Path;
  * QAsks is a Querydsl query type for Asks
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QAsks extends EntityPathBase<Asks> {
+public class QAsks extends EntityPathBase<Ask> {
 
     private static final long serialVersionUID = -893547300L;
 
@@ -31,22 +31,22 @@ public class QAsks extends EntityPathBase<Asks> {
 
     public final StringPath itemId = createString("itemId");
 
-    public final EnumPath<Asks.Status> status = createEnum("status", Asks.Status.class);
+    public final EnumPath<Status> status = createEnum("status", Status.class);
 
     public final StringPath title = createString("title");
 
     public final NumberPath<Long> userID = createNumber("userID", Long.class);
 
     public QAsks(String variable) {
-        super(Asks.class, forVariable(variable));
+        super(Ask.class, forVariable(variable));
     }
 
-    public QAsks(Path<? extends Asks> path) {
+    public QAsks(Path<? extends Ask> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QAsks(PathMetadata metadata) {
-        super(Asks.class, metadata);
+        super(Ask.class, metadata);
     }
 
 }
