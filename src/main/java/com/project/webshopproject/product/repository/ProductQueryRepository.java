@@ -2,7 +2,7 @@ package com.project.webshopproject.product.repository;
 
 import com.project.webshopproject.product.dto.*;
 import com.project.webshopproject.product.entity.QProducts;
-import com.project.webshopproject.product.entity.QProductCategory;
+import com.project.webshopproject.categories.entity.QProductCategory;
 import com.project.webshopproject.product.entity.QProductImg;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -41,5 +41,20 @@ public class ProductQueryRepository {
                         .and(productImage.isMain.isTrue())) // 메인이미지만 필터링
                 .fetch();
     }
+    //카테고리 삭제할때, 관련된 상품들도 삭제하게끔
+    public void deleteProductByCategory(Long categoryId){
 
+        jpaQueryFactory.delete(productImage)
+                .where(productImage.products.category.productCategoryId.eq(categoryId))
+                .execute();
+
+        jpaQueryFactory.delete(product)
+                .where(product.category.productCategoryId.eq(categoryId))
+                .execute();
+
+        jpaQueryFactory.delete(productCategory)
+                .where(productCategory.productCategoryId.eq(categoryId))
+                .execute();
+
+    }
 }

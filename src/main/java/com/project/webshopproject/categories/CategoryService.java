@@ -50,9 +50,9 @@ public class CategoryService {
     }
 
     // 카테고리 삭제
-//    public void deleteCategory(Long categoryId){
-//        ProductCategory productCategory = productCategoryRepository.findById(categoryId)
-//                .orElseThrow(() -> new IllegalArgumentException("카테고리가 존재하지 않습니다."));
-//        productQueryRepository.deleteProductByCategory(categoryId);
-//    }
+    public void deleteCategory(Long categoryId){
+        ProductCategory productCategory = productCategoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("카테고리가 존재하지 않습니다."));
+        productQueryRepository.deleteProductByCategory(categoryId);
+    }
 }

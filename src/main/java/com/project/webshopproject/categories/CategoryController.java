@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +16,7 @@ public class CategoryController {
     // 카테고리 전체 조회
     @GetMapping("/categories")
     public ResponseEntity<String> getAllCategories(){
-         categoryService.getAllCategories();
+        categoryService.getAllCategories();
         return ResponseEntity.ok("카테고리조회에 성공하였습니다");
     }
     // 카테고리 추가
@@ -36,6 +35,11 @@ public class CategoryController {
     }
 
     // 카테고리 삭제
+    @DeleteMapping("/categories/{categoryId}")
+    public ResponseEntity<String> deleteCategory(@PathVariable("categoryId") Long categoryId){
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.ok("카테고리삭제에 성공하였습니다");
+    }
 
 }
 
