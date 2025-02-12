@@ -1,4 +1,4 @@
-package com.project.webshopproject.product.entity;
+package com.project.webshopproject.categories.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

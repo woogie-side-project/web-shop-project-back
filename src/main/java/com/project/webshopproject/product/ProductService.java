@@ -1,12 +1,6 @@
 package com.project.webshopproject.product;
 
-import com.project.webshopproject.product.dto.CategoryAddRequestDto;
-import com.project.webshopproject.product.dto.ProductAddRequestDto;
 import com.project.webshopproject.product.dto.ProductResponseDto;
-import com.project.webshopproject.product.entity.ProductCategory;
-import com.project.webshopproject.product.entity.ProductImg;
-import com.project.webshopproject.product.entity.Products;
-import com.project.webshopproject.product.repository.ProductCategoryRepository;
 import com.project.webshopproject.product.repository.ProductImgRepository;
 import com.project.webshopproject.product.repository.ProductQueryRepository;
 import com.project.webshopproject.product.repository.ProductRepository;
@@ -31,7 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductImgRepository productImgRepository;
     private final ProductQueryRepository productQueryRepository;
-    private final ProductCategoryRepository productCategoryRepository;
+
 
     // 전체 상품 조회
     public List<ProductResponseDto> getAllProducts(){
@@ -155,10 +149,4 @@ public class ProductService {
 //        productRepository.delete(deleteItem);
 //    }
 
-    //카테고리 추가
-//    public void addCategory(CategoryAddRequestDto categoryAddRequestDto){
-//        ProductCategory productCategory = ProductCategory.builder()
-//                .name(categoryAddRequestDto.categoryName()).build();
-//        productCategoryRepository.save(productCategory);
-//    }
 }

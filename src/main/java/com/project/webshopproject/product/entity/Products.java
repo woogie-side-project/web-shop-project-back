@@ -1,5 +1,7 @@
 package com.project.webshopproject.product.entity;
 
+import com.project.webshopproject.categories.entity.CategoryType;
+import com.project.webshopproject.categories.entity.ProductCategory;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

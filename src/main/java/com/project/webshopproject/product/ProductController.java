@@ -1,12 +1,8 @@
 package com.project.webshopproject.product;
 
-import com.project.webshopproject.product.dto.CategoryAddRequestDto;
-import com.project.webshopproject.product.dto.ProductAddRequestDto;
 import com.project.webshopproject.product.dto.ProductResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -44,10 +40,4 @@ public class ProductController {
 //        return ResponseEntity.ok("상품삭제에 성공하였습니다");
 //    }
 
-    // 카테고리 추가
-//    @PostMapping("/categories")
-//    public ResponseEntity<String> addCategory(@RequestBody CategoryAddRequestDto categoryAddRequestDto){
-//        productService.addCategory(categoryAddRequestDto);
-//        return ResponseEntity.ok("카테고리추가에 성공하였습니다");
-//    }
 }
