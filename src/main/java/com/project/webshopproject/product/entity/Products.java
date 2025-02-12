@@ -9,16 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Getter
 @NoArgsConstructor
-public class Product {
+public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-
-    @Column(nullable = false, length = 50)
-    private String name;
 
     @OneToOne
     @JoinColumn(name = "product_main_id")
@@ -27,9 +24,16 @@ public class Product {
     @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImg> productImages = new ArrayList<>();  // 모든 이미지
 
-    @ManyToOne
-    @JoinColumn(name = "sub_category_id", nullable = false)
-    private SubCategory subCategory; // 서브 카테고리
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_category_id", nullable = false)
+    private ProductCategory category;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="categoryType",nullable = false, length = 10)
+    private CategoryType categoryType;
+
+    @Column(nullable = false, length = 50)
+    private String name;
 
     @Column(nullable = false)
     private Integer price;
@@ -38,16 +42,12 @@ public class Product {
     private Integer stock;
 
     @Builder
-    public Product(String name, ProductImg mainImage, List<ProductImg> productImages,
-                   SubCategory subCategory, Integer price, Integer stock) {
+    public Products(ProductCategory category, String name, Integer price, Integer stock, CategoryType categoryType) {
+        this.category = category;
         this.name = name;
-        this.mainImage = mainImage;
-        if (productImages != null) {
-            this.productImages = productImages;
-        }
-        this.subCategory = subCategory;
         this.price = price;
         this.stock = stock;
+        this.categoryType = categoryType;
     }
 
 }

@@ -7,17 +7,17 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "itemImage")
+@Table(name = "productImage")
 @Getter
 @NoArgsConstructor
 public class ProductImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemImageId;
+    private Long productImgId;
 
-    @ManyToOne(fetch = FetchType.LAZY) // 엔티티를 조회할 때 Items 엔티티를 바로 불러오지 않고,필요할 때 불러옴 → 성능 최적화
-    @JoinColumn(name = "item_id", nullable = false)
-    private Product product;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Products products;
 
     @Column(length = 255, nullable = false)
     private String image;
@@ -29,9 +29,10 @@ public class ProductImg {
     private Integer orderNo;
 
     @Builder
-    public ProductImg(String image, boolean isMain, Integer orderNo){
+    public ProductImg(String image, boolean isMain, Integer orderNo, Products products){
         this.image = image;
         this.isMain = isMain;
         this.orderNo = orderNo;
+        this.products = products;
     }
 }
