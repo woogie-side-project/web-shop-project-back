@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QAsks is a Querydsl query type for Asks
+ * QAsk is a Querydsl query type for Ask
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QAsks extends EntityPathBase<Ask> {
+public class QAsk extends EntityPathBase<Ask> {
 
-    private static final long serialVersionUID = -893547300L;
+    private static final long serialVersionUID = 1218101879L;
 
-    public static final QAsks asks = new QAsks("asks");
+    public static final QAsk ask = new QAsk("ask");
 
     public final StringPath adminResponse = createString("adminResponse");
 
@@ -29,23 +29,23 @@ public class QAsks extends EntityPathBase<Ask> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath itemId = createString("itemId");
+    public final NumberPath<Long> itemId = createNumber("itemId", Long.class);
 
     public final EnumPath<Status> status = createEnum("status", Status.class);
 
     public final StringPath title = createString("title");
 
-    public final NumberPath<Long> userID = createNumber("userID", Long.class);
+    public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
-    public QAsks(String variable) {
+    public QAsk(String variable) {
         super(Ask.class, forVariable(variable));
     }
 
-    public QAsks(Path<? extends Ask> path) {
+    public QAsk(Path<? extends Ask> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QAsks(PathMetadata metadata) {
+    public QAsk(PathMetadata metadata) {
         super(Ask.class, metadata);
     }
 

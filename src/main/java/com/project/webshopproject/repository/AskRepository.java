@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface AskRepository extends JpaRepository<Ask, Long>{
-    List<Ask> findByUserID(Long userID);
-    Optional<Ask> findByIdAndUserID(Long id, Long userID);
+    List<Ask> findByUserID(Long userId);
+    Optional<Ask> findByIdAndUserID(Long id, Long userId);
 }

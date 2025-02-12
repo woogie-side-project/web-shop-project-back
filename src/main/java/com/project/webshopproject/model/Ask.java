@@ -34,7 +34,7 @@ public class Ask {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status = ANSWERED;
+    private Status status;
 
     // 모든 필드를 초기화하는 생성자 추가
     public Ask(Long userId, String title, String content, String category, String itemId) {

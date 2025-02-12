@@ -77,7 +77,7 @@ public class AskController {
         Ask updatedAsk = askService.addAnswerToAsk(askId, answer);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("userID", updatedAsk.getUserId());
+        response.put("userId", updatedAsk.getUserId());
         response.put("title", updatedAsk.getTitle());
         response.put("content", updatedAsk.getContent());
         response.put("category", updatedAsk.getCategory());
