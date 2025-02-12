@@ -1,8 +1,11 @@
 package com.project.webshopproject.product;
 
+import com.project.webshopproject.product.dto.ProductAddRequestDto;
 import com.project.webshopproject.product.dto.ProductResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,12 +23,12 @@ public class ProductController {
 //    public ProductFindRequestDto getProductById(@PathVariable Long itemId) {
 //        return productService.getProductById(itemId);
 //    }
-//    @PostMapping("/products") //상품 추가
-//    public ResponseEntity<String> addProduct(@RequestPart("dto") ProductAddRequestDto productAddRequestDto,
-//                                          @RequestPart("image") final List<MultipartFile> images){
-//        productService.addProduct(productAddRequestDto,images);
-//        return ResponseEntity.ok("상품추가에 성공하였습니다");
-//    }
+    @PostMapping("/products") //상품 추가
+    public ResponseEntity<String> addProduct(@RequestPart("dto") ProductAddRequestDto productAddRequestDto,
+                                             @RequestPart("image") final List<MultipartFile> images){
+        productService.addProduct(productAddRequestDto,images);
+        return ResponseEntity.ok("상품추가에 성공하였습니다");
+    }
 
 //    @PatchMapping("/products/{productId}") // 상품 수정
 //    public ResponseEntity<ItemEditDto> editItem(@PathVariable Long itemId,

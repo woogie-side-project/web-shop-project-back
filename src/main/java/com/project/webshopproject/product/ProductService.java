@@ -1,6 +1,11 @@
 package com.project.webshopproject.product;
 
+import com.project.webshopproject.categories.entity.ProductCategory;
+import com.project.webshopproject.categories.repository.ProductCategoryRepository;
+import com.project.webshopproject.product.dto.ProductAddRequestDto;
 import com.project.webshopproject.product.dto.ProductResponseDto;
+import com.project.webshopproject.product.entity.ProductImg;
+import com.project.webshopproject.product.entity.Products;
 import com.project.webshopproject.product.repository.ProductImgRepository;
 import com.project.webshopproject.product.repository.ProductQueryRepository;
 import com.project.webshopproject.product.repository.ProductRepository;
@@ -25,6 +30,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductImgRepository productImgRepository;
     private final ProductQueryRepository productQueryRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
 
     // 전체 상품 조회
@@ -44,37 +50,37 @@ public class ProductService {
     private String uploadDir; // 이미지 파일 저장 되는 경로
 
     // 상품 추가
-//    public void addProduct(ProductAddRequestDto productAddRequestDto, List<MultipartFile> images){
-//        ProductCategory productCategory = productCategoryRepository.findById(productAddRequestDto.categoryId())
-//                .orElseThrow(()-> new IllegalArgumentException("카테고리가 존재하지않음"));
-//
-//        try{
-//            Products products = Products.builder()
-//                    .name(productAddRequestDto.productName())
-//                    .price(productAddRequestDto.productPrice())
-//                    .stock(productAddRequestDto.productStock())
-//                    .category(productCategory)
-//                    .categoryType(productAddRequestDto.categoryType())
-//                    .build();
-//            productRepository.save(products);
-//            System.out.println(products.getProductId());
-//
-//            List<String> savedImageUrls = saveImage(images);
-//            List<ProductImg> productImgs = new ArrayList<>();
-//            for(int i = 0; i < images.size(); i++){
-//                ProductImg productImg = ProductImg.builder()
-//                        .image(savedImageUrls.get(i))
-//                        .orderNo(i + 1)
-//                        .isMain(i == 0)
-//                        .products(products)
-//                        .build();
-//                productImgs.add(productImg);
-//            }
-//            productImgRepository.saveAll(productImgs);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public void addProduct(ProductAddRequestDto productAddRequestDto, List<MultipartFile> images){
+        ProductCategory productCategory = productCategoryRepository.findById(productAddRequestDto.categoryId())
+                .orElseThrow(()-> new IllegalArgumentException("카테고리가 존재하지않음"));
+
+        try{
+            Products products = Products.builder()
+                    .name(productAddRequestDto.productName())
+                    .price(productAddRequestDto.productPrice())
+                    .stock(productAddRequestDto.productStock())
+                    .category(productCategory)
+                    .categoryType(productAddRequestDto.categoryType())
+                    .build();
+            productRepository.save(products);
+            System.out.println(products.getProductId());
+
+            List<String> savedImageUrls = saveImage(images);
+            List<ProductImg> productImgs = new ArrayList<>();
+            for(int i = 0; i < images.size(); i++){
+                ProductImg productImg = ProductImg.builder()
+                        .image(savedImageUrls.get(i))
+                        .orderNo(i + 1)
+                        .isMain(i == 0)
+                        .products(products)
+                        .build();
+                productImgs.add(productImg);
+            }
+            productImgRepository.saveAll(productImgs);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // 이미지를 서버에 저장하고 경로를 반환하는 메서드
     public List<String> saveImage(List<MultipartFile> images) throws IOException {
