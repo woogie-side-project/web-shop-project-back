@@ -1,13 +1,11 @@
 package com.project.webshopproject.categories;
 
 import com.project.webshopproject.categories.dto.CategoryAddRequestDto;
+import com.project.webshopproject.categories.dto.CategoryEditRequestDto;
 import com.project.webshopproject.categories.dto.CategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +28,12 @@ public class CategoryController {
     }
 
     // 카테고리 수정
+    @PatchMapping("/categories/{categoryId}")
+    public ResponseEntity<String> editCategory(@PathVariable("categoryId") Long categoryId,
+                                               @RequestBody CategoryEditRequestDto categoryEditRequestDto){
+        categoryService.editCategory(categoryId,categoryEditRequestDto);
+        return ResponseEntity.ok("카테고리수정에 성공하였습니다");
+    }
 
     // 카테고리 삭제
 

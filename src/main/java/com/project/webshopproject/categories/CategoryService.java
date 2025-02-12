@@ -1,6 +1,7 @@
 package com.project.webshopproject.categories;
 
 import com.project.webshopproject.categories.dto.CategoryAddRequestDto;
+import com.project.webshopproject.categories.dto.CategoryEditRequestDto;
 import com.project.webshopproject.categories.entity.ProductCategory;
 import com.project.webshopproject.categories.repository.ProductCategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,17 @@ public class CategoryService {
     }
 
     // 카테고리 수정
+    public void editCategory(Long categoryId,CategoryEditRequestDto categoryEditRequestDto){
+        ProductCategory productCategory = productCategoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("카테고리가 존재하지 않습니다."));
+
+        productCategory = productCategory.builder()
+                .id(categoryId)
+                .name(categoryEditRequestDto.name())
+                .build();
+
+        productCategoryRepository.save(productCategory);
+    }
 
     // 카테고리 삭제
 }

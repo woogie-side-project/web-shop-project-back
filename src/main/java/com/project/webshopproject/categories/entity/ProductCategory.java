@@ -19,7 +19,8 @@ public class ProductCategory {
     private String name;
 
     @Builder
-    public ProductCategory(String name) {
+    public ProductCategory(Long id, String name) {
+        this.productCategoryId = id;
         this.name = name;
     }
 
