@@ -21,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final ItemRepository itemRepository;
+    //TODO 제품 브랜치랑 머지 후 수정필요
+    //private final ProductRepository ProductRepository;
     private final UserRepository userRepository;
 
     public void addCart(CartAddRequestDto requestDto, String email) {
