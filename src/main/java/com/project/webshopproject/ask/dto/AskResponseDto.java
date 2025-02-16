@@ -1,19 +1,15 @@
 package com.project.webshopproject.ask.dto;
 
-public class AskResponseDto {
-    private Long id;
-    private Long userId;
-    private String title;
-    private String content;
-    private String category;
-    private Long itemId;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    public AskResponseDto(Long id, Long userId, String title, String content, String category, Long itemId) {
-        this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.itemId = itemId;
-    }
+@Getter
+@AllArgsConstructor
+public class AskResponseDto {
+    private final Long id;
+    private final Long userId;
+    private final String title;
+    private final String content;
+    private final String category;
+    private final Long itemId;
 }

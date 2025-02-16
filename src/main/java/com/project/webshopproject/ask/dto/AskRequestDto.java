@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 public class AskRequestDto {
 
+    // Getters only, no setters
     @NotNull(message = "User ID는 null일 수 없습니다.")
     private final Long userID;
 
@@ -37,24 +38,4 @@ public class AskRequestDto {
         this.itemId = itemId;
     }
 
-    // Getters only, no setters
-    public Long getUserID() {
-        return userID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getItemId() {
-        return itemId;
-    }
 }
