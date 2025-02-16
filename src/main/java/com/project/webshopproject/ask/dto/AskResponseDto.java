@@ -1,4 +1,4 @@
-package com.project.webshopproject.dto;
+package com.project.webshopproject.ask.dto;
 
 public class AskResponseDto {
     private Long id;

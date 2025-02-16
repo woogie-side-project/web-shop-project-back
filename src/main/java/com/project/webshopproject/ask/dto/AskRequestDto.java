@@ -1,4 +1,4 @@
-package com.project.webshopproject.dto;
+package com.project.webshopproject.ask.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

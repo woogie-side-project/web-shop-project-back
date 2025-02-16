@@ -1,8 +1,8 @@
-package com.project.webshopproject.model;
+package com.project.webshopproject.ask.entity;
 
 import jakarta.persistence.*;
 
-import static com.project.webshopproject.model.Status.ANSWERED;
+import static com.project.webshopproject.ask.entity.Status.ANSWERED;
 
 @Entity
 public class Ask {
