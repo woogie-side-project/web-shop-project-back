@@ -1,5 +1,5 @@
 package com.project.webshopproject.ask.entity;
 
-public enum Status {
+public enum AskStatus {
     WAITING, ANSWERED
 }
