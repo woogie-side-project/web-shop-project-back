@@ -1,6 +1,7 @@
 package com.project.webshopproject.cart;
 
 import com.project.webshopproject.cart.dto.CartAddRequestDto;
+import com.project.webshopproject.cart.dto.CartResponseDto;
 import com.project.webshopproject.common.RestApiResponseDto;
 import com.project.webshopproject.security.UserDetailsImpl;
 import com.project.webshopproject.user.dto.UserSignupRequestDto;
@@ -42,11 +43,11 @@ public class CartRestController {
 
     // 장바구니 조회
     @GetMapping("/carts")
-    public ResponseEntity<RestApiResponseDto<List<Map<String, Object>>>> getCart(
+    public ResponseEntity<RestApiResponseDto<List<CartResponseDto>>> getCart(
             @AuthenticationPrincipal final UserDetailsImpl userDetails
     ) {
         try {
-            List<Map<String, Object>> cartItems = cartService.getAllCartItem(userDetails.getEmail());
+            List<CartResponseDto> cartItems = cartService.getAllCartItem(userDetails.getEmail());
 
             return ResponseEntity.status(HttpStatus.OK)
                     .body(RestApiResponseDto.of("장바구니 전체조회했습니다.", cartItems));
