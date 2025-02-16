@@ -1,0 +1,15 @@
+version: '3.9' # Compose 파일 버전
+services:
+  mysql:
+    image: mysql:latest
+    container_name: ${MYSQL_CONTAINER_NAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
