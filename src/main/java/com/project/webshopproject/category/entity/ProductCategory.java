@@ -1,4 +1,4 @@
-package com.project.webshopproject.categories.entity;
+package com.project.webshopproject.category.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -13,14 +13,15 @@ public class ProductCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productCategoryId;
+    @Column(name = "category_id")
+    private Long categoryId;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "name",nullable = false, length = 255)
     private String name;
 
     @Builder
     public ProductCategory(Long id, String name) {
-        this.productCategoryId = id;
+        this.categoryId = id;
         this.name = name;
     }
 

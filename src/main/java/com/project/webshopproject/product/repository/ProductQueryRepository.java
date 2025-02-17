@@ -1,9 +1,9 @@
 package com.project.webshopproject.product.repository;
 
 import com.project.webshopproject.product.dto.*;
+import com.project.webshopproject.product.entity.QProductImage;
 import com.project.webshopproject.product.entity.QProducts;
-import com.project.webshopproject.categories.entity.QProductCategory;
-import com.project.webshopproject.product.entity.QProductImg;
+import com.project.webshopproject.category.entity.QProductCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class ProductQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final QProducts product = QProducts.products;
-    private final QProductImg productImage = QProductImg.productImg;
+    private final QProductImage productImage = QProductImage.productImage;
     private final QProductCategory productCategory = QProductCategory.productCategory;
 
     // 모든 상품 조회
@@ -26,7 +26,7 @@ public class ProductQueryRepository {
         return jpaQueryFactory
                 .select(new QProductResponseDto(
                         product.productId,
-                        product.category.productCategoryId,
+                        product.category.categoryId,
                         product.categoryType.stringValue(),
                         productCategory.name,
                         product.name,
@@ -41,20 +41,48 @@ public class ProductQueryRepository {
                         .and(productImage.isMain.isTrue())) // 메인이미지만 필터링
                 .fetch();
     }
+    //세부 상품 조회
+    public List<ProductFindResponseDto> findProductsById(Long productId){
+        return jpaQueryFactory
+                .select(new QProductFindResponseDto(
+                        product.name,
+                        product.price,
+                        product.stock,
+                        productImage.image,
+                        product.categoryType.stringValue(),
+                        productCategory.name
+                ))
+                .from(product)
+                .leftJoin(product.category, productCategory)
+                .leftJoin(productImage).on(productImage.products.eq(product)) // 상품 이미지와 연관관계 매핑
+                .where(product.productId.eq(productId)) // 특정 상품 ID로 필터링
+                .fetch();
+    }
     //카테고리 삭제할때, 관련된 상품들도 삭제하게끔
     public void deleteProductByCategory(Long categoryId){
 
         jpaQueryFactory.delete(productImage)
-                .where(productImage.products.category.productCategoryId.eq(categoryId))
+                .where(productImage.products.category.categoryId.eq(categoryId))
                 .execute();
 
         jpaQueryFactory.delete(product)
-                .where(product.category.productCategoryId.eq(categoryId))
+                .where(product.category.categoryId.eq(categoryId))
                 .execute();
 
         jpaQueryFactory.delete(productCategory)
-                .where(productCategory.productCategoryId.eq(categoryId))
+                .where(productCategory.categoryId.eq(categoryId))
                 .execute();
 
+    }
+    //상품 삭제시 이미지도 삭제
+    public void deleteProduct(Long productId){
+
+        jpaQueryFactory.delete(productImage)
+                .where(productImage.products.productId.eq(productId))
+                .execute();
+
+//        jpaQueryFactory.delete(product)
+//                .where(product.productId.eq(productId))
+//                .execute();
     }
 }

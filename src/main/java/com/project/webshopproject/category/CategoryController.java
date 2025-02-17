@@ -1,8 +1,7 @@
-package com.project.webshopproject.categories;
+package com.project.webshopproject.category;
 
-import com.project.webshopproject.categories.dto.CategoryAddRequestDto;
-import com.project.webshopproject.categories.dto.CategoryEditRequestDto;
-import com.project.webshopproject.categories.dto.CategoryResponseDto;
+import com.project.webshopproject.category.dto.CategoryAddRequestDto;
+import com.project.webshopproject.category.dto.CategoryEditRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

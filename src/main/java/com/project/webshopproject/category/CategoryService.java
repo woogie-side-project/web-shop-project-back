@@ -1,11 +1,10 @@
-package com.project.webshopproject.categories;
+package com.project.webshopproject.category;
 
-import com.project.webshopproject.categories.dto.CategoryAddRequestDto;
-import com.project.webshopproject.categories.dto.CategoryEditRequestDto;
-import com.project.webshopproject.categories.dto.CategoryResponseDto;
-import com.project.webshopproject.categories.entity.ProductCategory;
-import com.project.webshopproject.categories.repository.ProductCategoryRepository;
-import com.project.webshopproject.product.entity.Products;
+import com.project.webshopproject.category.dto.CategoryAddRequestDto;
+import com.project.webshopproject.category.dto.CategoryEditRequestDto;
+import com.project.webshopproject.category.dto.CategoryResponseDto;
+import com.project.webshopproject.category.entity.ProductCategory;
+import com.project.webshopproject.category.repository.ProductCategoryRepository;
 import com.project.webshopproject.product.repository.ProductQueryRepository;
 import com.project.webshopproject.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class CategoryService {
         List<ProductCategory> allcategories = productCategoryRepository.findAll();
         return allcategories.stream()
                 .map(productCategory -> new CategoryResponseDto(
-                productCategory.getProductCategoryId(),
+                productCategory.getCategoryId(),
                 productCategory.getName())).collect(Collectors.toList());
     }
     // 카테고리 추가

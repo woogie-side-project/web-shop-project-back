@@ -1,7 +1,7 @@
 package com.project.webshopproject.product;
 
 import com.project.webshopproject.product.dto.ProductAddRequestDto;
-import com.project.webshopproject.product.dto.ProductResponseDto;
+import com.project.webshopproject.product.dto.ProductFindResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +14,19 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/products") //모든 상품 조회
-    public List<ProductResponseDto> getAllProducts(){
-        return productService.getAllProducts();
+    //모든 상품 조회
+    @GetMapping("/product")
+    public ResponseEntity<String> getAllProducts(){
+        productService.getAllProducts();
+        return ResponseEntity.ok("상품조회에 성공하였습니다");
     }
-
-//    @GetMapping("/products/{productId}") //단일 상품 조회
-//    public ProductFindRequestDto getProductById(@PathVariable Long itemId) {
-//        return productService.getProductById(itemId);
-//    }
-    @PostMapping("/products") //상품 추가
+    //단일 상품 조회
+    @GetMapping("/product/{productId}")
+    public List<ProductFindResponseDto> getProductById(@PathVariable("productId") Long productId) {
+        return productService.getProductById(productId);
+    }
+    //상품 추가
+    @PostMapping("/product")
     public ResponseEntity<String> addProduct(@RequestPart("dto") ProductAddRequestDto productAddRequestDto,
                                              @RequestPart("image") final List<MultipartFile> images){
         productService.addProduct(productAddRequestDto,images);
@@ -37,10 +40,10 @@ public class ProductController {
 //        ItemEditDto updatedItem = itemService.editItem(itemId,itemEditDto, image);
 //        return ResponseEntity.ok(updatedItem);
 //    }
-//    @DeleteMapping("products/{productId}") // 상품 삭제
-//    public ResponseEntity<String> deleteItem(@PathVariable Long itemId){
-//        productService.deleteItem(itemId);
-//        return ResponseEntity.ok("상품삭제에 성공하였습니다");
-//    }
+    @DeleteMapping("product/{productId}") // 상품 삭제
+    public ResponseEntity<String> deleteItem(@PathVariable("productId") Long productId){
+        productService.deleteProduct(productId);
+        return ResponseEntity.ok("상품삭제에 성공하였습니다");
+    }
 
 }

@@ -1,17 +1,19 @@
 package com.project.webshopproject.product;
 
-import com.project.webshopproject.categories.entity.ProductCategory;
-import com.project.webshopproject.categories.repository.ProductCategoryRepository;
+import com.project.webshopproject.category.entity.ProductCategory;
+import com.project.webshopproject.category.repository.ProductCategoryRepository;
 import com.project.webshopproject.product.dto.ProductAddRequestDto;
 import com.project.webshopproject.product.dto.ProductResponseDto;
-import com.project.webshopproject.product.entity.ProductImg;
-import com.project.webshopproject.product.entity.Products;
-import com.project.webshopproject.product.repository.ProductImgRepository;
+import com.project.webshopproject.product.dto.ProductFindResponseDto;
+import com.project.webshopproject.product.entity.Product;
+import com.project.webshopproject.product.entity.ProductImage;
+import com.project.webshopproject.product.repository.ProductImageRepository;
 import com.project.webshopproject.product.repository.ProductQueryRepository;
 import com.project.webshopproject.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,9 +28,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
     private final ProductRepository productRepository;
-    private final ProductImgRepository productImgRepository;
+    private final ProductImageRepository productImageRepository;
     private final ProductQueryRepository productQueryRepository;
     private final ProductCategoryRepository productCategoryRepository;
 
@@ -41,10 +44,10 @@ public class ProductService {
     //카테고리별 조회 api 추가
 
      // 세부 상품 조회
-//    public ProductFindRequestDto getProductById(Long itemId) {
-//        ProductFindRequestDto productById = productQueryRepository.findProductById(itemId);
-//        return productById;
-//    }
+    public List<ProductFindResponseDto> getProductById(Long productId) {
+        List<ProductFindResponseDto> productById = productQueryRepository.findProductsById(productId);
+        return productById;
+    }
 
     @Value("${file.upload-dir}")
     private String uploadDir; // 이미지 파일 저장 되는 경로
@@ -55,28 +58,49 @@ public class ProductService {
                 .orElseThrow(()-> new IllegalArgumentException("카테고리가 존재하지않음"));
 
         try{
-            Products products = Products.builder()
+            Product product = Product.builder()
                     .name(productAddRequestDto.productName())
                     .price(productAddRequestDto.productPrice())
                     .stock(productAddRequestDto.productStock())
                     .category(productCategory)
                     .categoryType(productAddRequestDto.categoryType())
                     .build();
-            productRepository.save(products);
-            System.out.println(products.getProductId());
+
+            System.out.println(product.getPrice());
+            productRepository.save(product);
 
             List<String> savedImageUrls = saveImage(images);
-            List<ProductImg> productImgs = new ArrayList<>();
+            List<ProductImage> productImages = new ArrayList<>();
             for(int i = 0; i < images.size(); i++){
-                ProductImg productImg = ProductImg.builder()
+                ProductImage productImage = ProductImage.builder()
                         .image(savedImageUrls.get(i))
                         .orderNo(i + 1)
                         .isMain(i == 0)
-                        .products(products)
+                        .product(product)
                         .build();
-                productImgs.add(productImg);
+                productImages.add(productImage);
             }
-            productImgRepository.saveAll(productImgs);
+            productImageRepository.saveAll(productImages);
+
+            // 메인 이미지 ID 가져오기 (isMain == true인 첫 번째 이미지)
+            ProductImage mainImage = productImages.stream()
+                    .filter(ProductImage::getIsMain)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("메인 이미지가 없습니다."));
+
+            // 새로 생성된 상품에 메인 이미지를 설정하여 업데이트
+            product = Product.builder()
+                    .productId(product.getProductId())  // 기존 productId를 그대로 사용
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .stock(product.getStock())
+                    .category(product.getCategory())
+                    .categoryType(product.getCategoryType())
+                    .mainImage(mainImage)  // 메인 이미지 설정
+                    .build();
+
+            // 상품 저장
+            productRepository.save(product);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -149,10 +173,14 @@ public class ProductService {
 //    }
 
     // 상품 삭제
-//    public void deleteItem(Long itemId){
-//        Product deleteItem = productRepository.findById(itemId)
-//                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + itemId));
-//        productRepository.delete(deleteItem);
-//    }
+    @Transactional
+    public void deleteProduct(Long productId){
+        // 1. 삭제할 상품 조회 (메인 이미지 포함)
+        Product deleteItem = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + productId));
+
+        productQueryRepository.deleteProduct(productId);
+        productRepository.delete(deleteItem);
+    }
 
 }

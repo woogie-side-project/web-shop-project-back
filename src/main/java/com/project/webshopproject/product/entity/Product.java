@@ -1,7 +1,7 @@
 package com.project.webshopproject.product.entity;
 
-import com.project.webshopproject.categories.entity.CategoryType;
-import com.project.webshopproject.categories.entity.ProductCategory;
+import com.project.webshopproject.category.entity.CategoryType;
+import com.project.webshopproject.category.entity.ProductCategory;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,23 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @Getter
 @NoArgsConstructor
-public class Products {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Long productId;
 
     @OneToOne
-    @JoinColumn(name = "product_main_id")
-    private ProductImg mainImage;
+    @JoinColumn(name = "product_image_id")
+    private ProductImage mainImage;
 
     @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductImg> productImages = new ArrayList<>();  // 모든 이미지
+    private List<ProductImage> productImages = new ArrayList<>();  // 모든 이미지
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private ProductCategory category;
 
     @Enumerated(EnumType.STRING)
@@ -44,11 +45,13 @@ public class Products {
     private Integer stock;
 
     @Builder
-    public Products(ProductCategory category, String name, Integer price, Integer stock, CategoryType categoryType) {
+    public Product(Long productId, ProductCategory category, String name, Integer price, Integer stock, CategoryType categoryType, ProductImage mainImage) {
+        this.productId = productId;
         this.category = category;
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.mainImage = mainImage;
         this.categoryType = categoryType;
     }
 

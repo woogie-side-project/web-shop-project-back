@@ -7,32 +7,34 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "productImage")
+@Table(name = "product_image")
 @Getter
 @NoArgsConstructor
-public class ProductImg {
+public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_image_id")
     private Long productImgId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false)
-    private Products products;
+    private Product product;
 
-    @Column(length = 255, nullable = false)
+    @Column(name = "image",length = 255, nullable = false)
     private String image;
 
-    @Column(nullable = false)
-    private boolean isMain;
+    @Column(name = "is_main",nullable = false)
+    private Boolean isMain;
 
-    @Column(nullable = false)
+    @Column(name = "order_no",nullable = false)
     private Integer orderNo;
 
     @Builder
-    public ProductImg(String image, boolean isMain, Integer orderNo, Products products){
+    public ProductImage(Long productImgId, String image, Boolean isMain, Integer orderNo, Product product){
+        this.productImgId = productImgId;
+        this.product = product;
         this.image = image;
         this.isMain = isMain;
         this.orderNo = orderNo;
-        this.products = products;
     }
 }
