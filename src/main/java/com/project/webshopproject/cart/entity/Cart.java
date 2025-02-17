@@ -30,15 +30,15 @@ public class Cart {
     private User user; // 회원 엔티티와의 관계
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item; // 상품 엔티티와의 관계
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product; // 상품 엔티티와의 관계
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity; // 수량
 
-    public Cart(User user, Item item, Integer quantity) {
+    public Cart(User user, Product product, Integer quantity) {
         this.user = user;
-        this.item = item;
+        this.product = product;
         this.quantity = quantity;
     }
 }

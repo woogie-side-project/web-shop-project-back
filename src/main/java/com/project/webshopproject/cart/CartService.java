@@ -40,7 +40,7 @@ public class CartService {
         List<CartResponseDto> cartResponse = new ArrayList<>();
         for (Cart cart : cartItems) {
             CartResponseDto responseDto = new CartResponseDto(
-                    cart.getItem().getName(),
+                    cart.getProduct().getName(),
                     cart.getQuantity()
             );
 
