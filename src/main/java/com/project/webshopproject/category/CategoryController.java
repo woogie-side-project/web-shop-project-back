@@ -2,9 +2,12 @@ package com.project.webshopproject.category;
 
 import com.project.webshopproject.category.dto.CategoryAddRequestDto;
 import com.project.webshopproject.category.dto.CategoryEditRequestDto;
+import com.project.webshopproject.category.dto.CategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -14,9 +17,9 @@ public class CategoryController {
 
     // 카테고리 전체 조회
     @GetMapping("/categories")
-    public ResponseEntity<String> getAllCategories(){
-        categoryService.getAllCategories();
-        return ResponseEntity.ok("카테고리조회에 성공하였습니다");
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategories(){
+        List<CategoryResponseDto> categories = categoryService.getAllCategories();
+        return ResponseEntity.ok(categories);
     }
     // 카테고리 추가
     @PostMapping("/categories")

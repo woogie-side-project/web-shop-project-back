@@ -22,8 +22,8 @@ public class CategoryService {
 
     // 카테고리 전체 조회
     public List<CategoryResponseDto> getAllCategories(){
-        List<ProductCategory> allcategories = productCategoryRepository.findAll();
-        return allcategories.stream()
+        List<ProductCategory> allCategories = productCategoryRepository.findAll();
+        return allCategories.stream()
                 .map(productCategory -> new CategoryResponseDto(
                 productCategory.getCategoryId(),
                 productCategory.getName())).collect(Collectors.toList());

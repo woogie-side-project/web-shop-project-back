@@ -38,16 +38,14 @@ public class ProductService {
 
     // 전체 상품 조회
     public List<ProductResponseDto> getAllProducts(){
-        List<ProductResponseDto> allProducts = productQueryRepository.findAllProducts();
-        return allProducts;
+        return productQueryRepository.findAllProducts();
     }
     //카테고리별 조회 api 추가
 
      // 세부 상품 조회
-    public List<ProductFindResponseDto> getProductById(Long productId) {
-        List<ProductFindResponseDto> productById = productQueryRepository.findProductsById(productId);
-        return productById;
-    }
+     public ProductFindResponseDto getProductById(Long productId) {
+         return productQueryRepository.findProductById(productId);
+     }
 
     @Value("${file.upload-dir}")
     private String uploadDir; // 이미지 파일 저장 되는 경로
@@ -173,7 +171,6 @@ public class ProductService {
 //    }
 
     // 상품 삭제
-    @Transactional
     public void deleteProduct(Long productId){
         // 1. 삭제할 상품 조회 (메인 이미지 포함)
         Product deleteItem = productRepository.findById(productId)

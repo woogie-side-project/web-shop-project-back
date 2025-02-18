@@ -24,7 +24,7 @@ public class Product {
     @JoinColumn(name = "product_image_id")
     private ProductImage mainImage;
 
-    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> productImages = new ArrayList<>();  // 모든 이미지
 
     @ManyToOne(fetch = FetchType.EAGER)

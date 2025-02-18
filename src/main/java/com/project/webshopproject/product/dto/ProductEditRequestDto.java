@@ -13,11 +13,4 @@ public class ProductEditRequestDto {
     private Integer productPrice;
     private Integer productStock;
 
-    @QueryProjection
-    public ProductEditRequestDto(String productName, List<String> productImg, Integer productPrice, Integer productStock) {
-        this.productName = productName;
-        this.productImg = productImg;
-        this.productPrice = productPrice;
-        this.productStock = productStock;
-    }
 }

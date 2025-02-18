@@ -2,7 +2,7 @@ package com.project.webshopproject.product.repository;
 
 import com.project.webshopproject.product.dto.*;
 import com.project.webshopproject.product.entity.QProductImage;
-import com.project.webshopproject.product.entity.QProducts;
+import com.project.webshopproject.product.entity.QProduct;
 import com.project.webshopproject.category.entity.QProductCategory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-    private final QProducts product = QProducts.products;
+    private final QProduct product = QProduct.product;
     private final QProductImage productImage = QProductImage.productImage;
     private final QProductCategory productCategory = QProductCategory.productCategory;
 
@@ -37,12 +37,12 @@ public class ProductQueryRepository {
                 .from(product)
                 .leftJoin(product.category, productCategory)
                 .leftJoin(productImage)
-                .on(product.eq(productImage.products)
+                .on(product.eq(productImage.product)
                         .and(productImage.isMain.isTrue())) // 메인이미지만 필터링
                 .fetch();
     }
     //세부 상품 조회
-    public List<ProductFindResponseDto> findProductsById(Long productId){
+    public ProductFindResponseDto findProductById(Long productId){
         return jpaQueryFactory
                 .select(new QProductFindResponseDto(
                         product.name,
@@ -54,15 +54,15 @@ public class ProductQueryRepository {
                 ))
                 .from(product)
                 .leftJoin(product.category, productCategory)
-                .leftJoin(productImage).on(productImage.products.eq(product)) // 상품 이미지와 연관관계 매핑
+                .leftJoin(productImage).on(productImage.product.eq(product)) // 상품 이미지와 연관관계 매핑
                 .where(product.productId.eq(productId)) // 특정 상품 ID로 필터링
-                .fetch();
+                .fetchOne();
     }
     //카테고리 삭제할때, 관련된 상품들도 삭제하게끔
     public void deleteProductByCategory(Long categoryId){
 
         jpaQueryFactory.delete(productImage)
-                .where(productImage.products.category.categoryId.eq(categoryId))
+                .where(productImage.product.category.categoryId.eq(categoryId))
                 .execute();
 
         jpaQueryFactory.delete(product)
@@ -78,7 +78,7 @@ public class ProductQueryRepository {
     public void deleteProduct(Long productId){
 
         jpaQueryFactory.delete(productImage)
-                .where(productImage.products.productId.eq(productId))
+                .where(productImage.product.productId.eq(productId))
                 .execute();
 
 //        jpaQueryFactory.delete(product)
