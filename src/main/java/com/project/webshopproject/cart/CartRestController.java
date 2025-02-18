@@ -4,11 +4,8 @@ import com.project.webshopproject.cart.dto.CartAddRequestDto;
 import com.project.webshopproject.cart.dto.CartResponseDto;
 import com.project.webshopproject.common.RestApiResponseDto;
 import com.project.webshopproject.security.UserDetailsImpl;
-import com.project.webshopproject.user.dto.UserSignupRequestDto;
 import jakarta.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CartRestController {
 
-    public final CartService cartService;
+    private final CartService cartService;
 
     @PostMapping("/carts")
     public ResponseEntity<RestApiResponseDto<String>> addCart(

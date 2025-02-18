@@ -52,7 +52,7 @@ public class CartService {
 
     // 장바구니 항목 삭제
     public void deleteCart(Long cartId, String email) {
-        User user = userRepository.findByEmail(email);
+        User user = userService.findByEmail(email);
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("장바구니 항목을 찾을 수 없습니다."));
 
         if (!cart.getUser().equals(user)) {
