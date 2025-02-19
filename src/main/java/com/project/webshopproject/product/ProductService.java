@@ -28,7 +28,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
@@ -171,12 +170,10 @@ public class ProductService {
 //    }
 
     // 상품 삭제
+    @Transactional
     public void deleteProduct(Long productId){
-        // 1. 삭제할 상품 조회 (메인 이미지 포함)
         Product deleteItem = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + productId));
-
-        productQueryRepository.deleteProduct(productId);
         productRepository.delete(deleteItem);
     }
 

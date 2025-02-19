@@ -74,15 +74,5 @@ public class ProductQueryRepository {
                 .execute();
 
     }
-    //상품 삭제시 이미지도 삭제
-    public void deleteProduct(Long productId){
 
-        jpaQueryFactory.delete(productImage)
-                .where(productImage.product.productId.eq(productId))
-                .execute();
-
-//        jpaQueryFactory.delete(product)
-//                .where(product.productId.eq(productId))
-//                .execute();
-    }
 }
