@@ -3,12 +3,16 @@ package com.project.webshopproject.cart;
 import com.project.webshopproject.cart.dto.CartAddRequestDto;
 import com.project.webshopproject.cart.dto.CartResponseDto;
 import com.project.webshopproject.cart.entity.Cart;
+import com.project.webshopproject.product.entity.Product;
+import com.project.webshopproject.product.repository.ProductRepository;
 import com.project.webshopproject.user.UserService;
 import com.project.webshopproject.user.entity.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +23,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class CartService {
 
     private final CartRepository cartRepository;
-    //TODO 제품 브랜치랑 머지 후 수정필요
-    //private final ProductRepository productRepository;
-    //private final UserRepository userRepository;
+    private final ProductRepository productRepository;
     private final UserService userService;
 
     public void addCart(CartAddRequestDto requestDto, String email) {
         User user = userService.findByEmail(email);
-        Product product = productRepository.findById(requestDto.productId());
+        Product product = productRepository.findById(requestDto.productId()).orElseThrow(() -> {
+            log.error("제품을 찾지 못함 | request : {}", requestDto.productId());
+            return new IllegalArgumentException("제품을 찾지 못했습니다.");
+        });;
         Cart cart = new Cart(user, product, requestDto.quantity());
 
         cartRepository.save(cart);

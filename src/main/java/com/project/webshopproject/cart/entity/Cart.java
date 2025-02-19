@@ -1,5 +1,6 @@
 package com.project.webshopproject.cart.entity;
 
+import com.project.webshopproject.product.entity.Product;
 import com.project.webshopproject.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +13,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
 @Entity
 @Getter
