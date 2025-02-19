@@ -20,7 +20,4 @@ spring:
             enabled: true
             max-file-size: 10MB
             max-request-size: 10MB
-
-image:
-    upload:
-        dir: src/main/resources/images
+    upload-dir: src/main/resources/static/images
